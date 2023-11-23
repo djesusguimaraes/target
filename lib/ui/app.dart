@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:get_it/get_it.dart';
-import 'package:target/router/router_store.dart';
+import 'package:target/app_routes.dart';
+import 'package:target/ui/auth/auth_page.dart';
+import 'package:target/ui/home/home_page.dart';
 
 class App extends StatelessWidget {
   App({super.key});
 
-  final routerStore = GetIt.instance.get<RouterStore>();
+  final navigatorKey = GlobalKey<NavigatorState>(debugLabel: 'routerKey');
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      return MaterialApp.router(
+      return MaterialApp(
         title: 'Target Test',
-        routerConfig: routerStore.router,
+        initialRoute: AppRoutes.auth,
+        navigatorKey: navigatorKey,
+        routes: {
+          AppRoutes.auth: (_) => const AuthPage(),
+          AppRoutes.home: (_) => const HomePage(),
+        },
         theme: ThemeData(
           primarySwatch: Colors.green,
           inputDecorationTheme: const InputDecorationTheme(
