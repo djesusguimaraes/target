@@ -12,21 +12,27 @@ class _PolicyLinkButtonState extends State<PolicyLinkButton> {
   @override
   Widget build(BuildContext context) => TextButton(
         onPressed: handleLinkTap,
-        child: const Text('Política de privacidade'),
+        child: const Text(
+          'Política de privacidade',
+          style: TextStyle(color: Colors.white),
+        ),
       );
 
   Future<void> handleLinkTap() async {
-    final uri = Uri.parse('https://www.google.com.br/');
+    // FIXME: Verificar porque o link não está abrindo
+    final uri = Uri.parse('https://google.com.br');
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      await launchUrl(uri, mode: LaunchMode.platformDefault);
       return;
     }
 
     if (mounted) {
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()
-        ..showSnackBar(
-            const SnackBar(content: Text('Ocorreu um erro ao abrir o link.')));
+        ..showSnackBar(const SnackBar(
+          content: Text('Ocorreu um erro ao abrir o link.'),
+          behavior: SnackBarBehavior.floating,
+        ));
     }
   }
 }

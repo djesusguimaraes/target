@@ -37,7 +37,7 @@ abstract class RouterStoreBase with Store {
     return GoRouter(
       routes: routes,
       redirect: redirect,
-      initialLocation: AppRoutes.home,
+      initialLocation: AppRoutes.auth,
       debugLogDiagnostics: kDebugMode,
       navigatorKey: navigatorKey,
     );
